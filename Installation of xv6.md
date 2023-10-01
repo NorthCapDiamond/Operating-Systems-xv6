@@ -16,6 +16,7 @@ $ brew install qemu
 ### 2) Also you need to install RISC-V TOOLS 😩:
 
 ```
+$ brew tap riscv/riscv
 $ brew install riscv-tools
 
 ```
