@@ -6,13 +6,13 @@ int dump2(int pid, int register_num, uint64* return_value){
   } 
 
   for (struct proc* pointer = proc; pointer < &proc[NCPU]; pointer++){
-    proc->lock.locked = 1;
+    acquire(&proc->lock);
 
     // searching for correct pid
     if(pointer->pid == pid){
       // checking the roots for reading the registers
       if(p->pid != pointer->pid && p->pid!= pointer->parent->pid){ 
-        proc->lock.locked = 0;
+        release(&proc->lock);
         return -1;
       }
 
@@ -23,16 +23,16 @@ int dump2(int pid, int register_num, uint64* return_value){
       //write the answer
 
       if(!copyout(p->pagetable, *return_value, (char*) reg_pointer, 8)){
-        proc->lock.locked = 0;
+        release(&proc->lock);
         return 0;
       }
       else{
-        proc->lock.locked = 0;
+        release(&proc->lock);
         return -4;
       }
 
     }
-    proc->lock.locked = 0;
+    release(&proc->lock);
   }
     return -2;
 }
