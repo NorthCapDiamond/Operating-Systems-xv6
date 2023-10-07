@@ -15,7 +15,6 @@ int main(int argc, char *argv[]){
 			close(p[0]);
 			printf("Process number %d received message: %s\n", getpid(), message);
 
-
 			write(p2[1], "Pong", size_of_message);
 			close(p2[1]);
 
