@@ -616,9 +616,9 @@ killed(struct proc *p)
 {
   int k;
   
-  acquire(&p->lock);
+  acquire(&list_lock);
   k = p->killed;
-  release(&p->lock);
+  release(&list_lock);
   return k;
 }
 
