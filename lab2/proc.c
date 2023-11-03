@@ -441,7 +441,7 @@ scheduler(void)
     intr_on();
 
     acquire(&list_lock);
-    for(p = processes.next_proc; p != &processes; p = processes.next_proc) {
+    for(p = processes.next_proc; p != &processes; p = p->next_proc) {
       if(p->state == RUNNABLE) {
         // Switch to chosen process.  It is the process's job
         // to release its lock and then reacquire it
