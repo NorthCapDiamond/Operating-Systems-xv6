@@ -701,8 +701,9 @@ int dump2(int pid, int register_num, uint64* return_value){
   if (register_num < 2 || register_num > 11){
     return -3;
   } 
-  acquire(&list_lock);
-  for (struct proc* pointer = processes.next_proc; pointer != &processes; pointer = pointer->next_proc){
+
+  for (struct proc* pointer = p->next_proc; pointer != &processes; pointer = pointer->next_proc){
+    acquire(&list_lock);
 
     // searching for correct pid
     if(pointer->pid == pid){
@@ -728,7 +729,7 @@ int dump2(int pid, int register_num, uint64* return_value){
       }
 
     }
-  }
     release(&list_lock);
+  }
     return -2;
 }
